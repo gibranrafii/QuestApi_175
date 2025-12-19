@@ -9,6 +9,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.praktikum8.uicontroller.route.DestinasiDetail
 import com.example.praktikum8.uicontroller.route.DestinasiEntry
 import com.example.praktikum8.uicontroller.route.DestinasiHome
+import com.example.praktikum8.view.EntrySiswaScreen
+import com.example.praktikum8.view.HomeScreen
 
 @Composable
 fun DataSiswaApp(
