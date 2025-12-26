@@ -38,8 +38,8 @@ import com.example.praktikum8.R
 import com.example.praktikum8.modeldata.DataSiswa
 import com.example.praktikum8.uicontroller.route.DestinasiHome
 import com.example.praktikum8.viewmodel.HomeViewModel
-import com.example.praktikum8.viewmodel.provider.PenyediaViewModel
 import com.example.praktikum8.viewmodel.StatusUiSiswa
+import com.example.praktikum8.viewmodel.provider.PenyediaViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -146,7 +146,7 @@ fun DaftarSiswa(
     onSiswaClick: (DataSiswa) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(modifier = Modifier) {
+    LazyColumn(modifier = modifier) {
         items(items = itemSiswa, key = { it.id }) { person ->
             ItemSiswa(
                 siswa = person,
