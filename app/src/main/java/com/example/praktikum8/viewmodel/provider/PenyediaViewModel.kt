@@ -23,6 +23,11 @@ object PenyediaViewModel {
                     .repositoryDataSiswa
             )
         }
-
+        initializer {
+            EntryViewModel(
+                aplikasiDataSiswa().container
+                    .repositoryDataSiswa
+            )
+        }
     }
 }
