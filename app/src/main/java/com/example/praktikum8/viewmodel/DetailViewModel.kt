@@ -1,6 +1,7 @@
 package com.example.praktikum8.viewmodel
 
 import android.annotation.SuppressLint
+
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -11,42 +12,38 @@ import com.example.praktikum8.modeldata.DataSiswa
 import com.example.praktikum8.repositori.RepositoryDataSiswa
 import com.example.praktikum8.uicontroller.route.DestinasiDetail
 import kotlinx.coroutines.launch
-import kotlinx.serialization.InternalSerializationApi
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 
 sealed interface StatusUIDetail {
-    data class Success(val statusiswa: DataSiswa) : StatusUIDetail
+    data class Success(val satusiswa: DataSiswa) : StatusUIDetail
     object Error : StatusUIDetail
     object Loading : StatusUIDetail
 }
 
-class DetailViewModel(
-    savedStateHandle: SavedStateHandle,
-    private val repositoryDataSiswa: RepositoryDataSiswa
-) : ViewModel() {
+class DetailViewModel(savedStateHandle: SavedStateHandle, private val repositoryDataSiswa:
+RepositoryDataSiswa
+): ViewModel() {
 
-    private val idSiswa: Int =
-        checkNotNull(savedStateHandle[DestinasiDetail.itemIdArg])
-
-    var statusUIDetail: StatusUIDetail by mutableStateOf(StatusUIDetail.Loading)
+    private val idSiswa: Int = checkNotNull(savedStateHandle[DestinasiDetail.itemIdArg])
+    var statusUIDetail:StatusUIDetail by mutableStateOf(StatusUIDetail.Loading)
         private set
 
     init {
         getSatuSiswa()
     }
 
-    fun getSatuSiswa() {
+    fun getSatuSiswa(){
         viewModelScope.launch {
             statusUIDetail = StatusUIDetail.Loading
             statusUIDetail = try {
-                StatusUIDetail.Success(
-                    statusiswa = repositoryDataSiswa.getSatuSiswa(idSiswa)
-                )
-            } catch (e: IOException) {
+                StatusUIDetail.Success(satusiswa = repositoryDataSiswa.getSatuSiswa(idSiswa))
+            }
+            catch (e: IOException){
                 StatusUIDetail.Error
-            } catch (e: HttpException) {
+            }
+            catch (e: HttpException){
                 StatusUIDetail.Error
             }
         }
@@ -54,13 +51,13 @@ class DetailViewModel(
 
     @SuppressLint("SuspiciousIndentation")
     suspend fun hapusSatuSiswa() {
-        val resp: Response<Void> =
-            repositoryDataSiswa.hapusSatuSiswa(idSiswa)
+        val resp: Response<Void> = repositoryDataSiswa.hapusSatuSiswa(idSiswa)
 
-        if (resp.isSuccessful) {
+        if (resp.isSuccessful){
             println("Sukses Hapus Data : ${resp.message()}")
-        } else {
+        }else{
             println("Gagal Hapus Data : ${resp.errorBody()}")
         }
+
     }
 }
