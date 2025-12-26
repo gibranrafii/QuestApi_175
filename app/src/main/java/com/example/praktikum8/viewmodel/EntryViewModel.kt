@@ -15,4 +15,15 @@ import retrofit2.Response
 class EntryViewModel(private val repositoryDataSiswa: RepositoryDataSiswa) :
     ViewModel() {
 
+    var uiStateSiswa by mutableStateOf(UIStateSiswa())
+        private set
+
+    /* Fungsi untuk memvalidasi input */
+    private fun validasiInput(
+        uiState: DetailSiswa = uiStateSiswa.detailSiswa
+    ): Boolean {
+        return with(uiState) {
+            nama.isNotBlank() && alamat.isNotBlank() && telpon.isNotBlank()
+        }
+    }
 }
